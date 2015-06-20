@@ -24,9 +24,9 @@ function putRecord(value){
     });
 
     var recordParams = {
-      Data : record,
+      Data : ""+value, //record,
       PartitionKey : "temperature-sensor-01",
-      StreamName : "caliente-stream"
+      StreamName : "poste-stream"
     };
 
     kinesis.putRecord(recordParams, function(err, data) {
