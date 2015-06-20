@@ -5,6 +5,12 @@ function onDocReady(){
 	wsock.onmessage = function (event) {
 		  //console.log(event.data);
 		  $("#poste").html(event.data);
+		  var data = parseInt(event.data);
+		  if(data < 20){
+			  $("#poste").addClass("aceso");
+		  }else{
+			  $("#poste").removeClass("aceso");
+		  }
 	}
 
 }
