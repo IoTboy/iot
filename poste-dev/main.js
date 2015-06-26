@@ -8,11 +8,18 @@ var kinesis = new AWS.Kinesis();
 //Grove
 var grove = require('jsupm_grove');
 var light = new grove.GroveLight(1);
+var led = new grove.GroveLed(2);
+led.off();
 
 
 function poll(){
   var value = light.value();
   putRecord(value);
+  if(value < 20){
+    led.on();
+  }else {
+    led.off();
+  }
 }
 
 function putRecord(value){
@@ -24,9 +31,9 @@ function putRecord(value){
     });
 
     var recordParams = {
-      Data : record,
+      Data : ""+value, //record,
       PartitionKey : "temperature-sensor-01",
-      StreamName : "caliente-stream"
+      StreamName : "poste-stream"
     };
 
     kinesis.putRecord(recordParams, function(err, data) {
